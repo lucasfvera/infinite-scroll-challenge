@@ -1,47 +1,54 @@
-# HomeVision Frontend Challenge
+# HomeVision House Listing WebApp
 
----
+This project is using [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This is a take home interview for HomeVision that focuses primarily on writing clean code that accomplishes a very practical task.
+## Deployed Version
 
-## Goal
+You can see a working version by going to ____
 
-The challenge is to build a **simple web app that displays an infinite scrolling of house data**. We’d prefer if you used React (or a React-based framework like Nextjs) but feel free to use any library for the UI components.
+## Running Locally
 
-**Note:** this is a *flaky* API! That means that it will likely fail with a non-200 response code. Your code *must* handle these errors correctly so that all photos are displayed without issues.
+First, install the project's dependencies:
 
-## API Endpoint
-
-You can request the data using the following endpoint:
-
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
 ```
-https://staging.homevision.co/api_project/houses
+
+Then, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-This route by itself will respond with a default list of houses (or a server error!). You can use the following URL parameters:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- `page`: the page number you want to retrieve (default is 1).
-- `per_page`: the number of houses per page (default is 10, max is 500).
+## Run a Production Like Version
 
-## Requirements
+You need to build the project locally:
 
-- Use React and TypeScript
-- Design and implement a system to display the results of the API calls to a user
-- Include instructions on how to run the project
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+```
 
-## Bonus Points
+Then, you have to start the server with:
 
-- Add some additional features that require more complex interactions
-- Show off your understanding of what is required to build and run a production application -  through comments and/or implementation of those requirements
+```bash
+npm run start
+# or
+yarn start
+# or
+pnpm start
+```
 
-## Submitting
-
-- Provide either a zip file with your code (preferred) or a link to a public github repo.
-
-Please let us know if you have any questions!
-
----
-
-Thanks,
-
-HomeVision Engineering
