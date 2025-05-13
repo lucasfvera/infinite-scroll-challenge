@@ -18,13 +18,14 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	const page = req.nextUrl.searchParams.get('page');
+	const per_page = req.nextUrl.searchParams.get('per_page');
 	let houses;
 	// TODO - To avoid sending a failed response to the client, we can add a
 	// counter to retry the request N times before responding with an error
 
 	try {
 		const rawHousesResponse = await fetch(
-			`https://staging.homevision.co/api_project/houses?page=${page}`
+			`https://staging.homevision.co/api_project/houses?page=${page}&per_page=${per_page}`
 		);
 		const jsonHousesResponse = await rawHousesResponse.json();
 		if (!jsonHousesResponse.ok) {
