@@ -2,6 +2,8 @@
 
 import { getHouses, getHousesInfinite } from '@/queries/getHouses';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 /*
     This component could be in a components folder using the Atomic Design
@@ -9,10 +11,11 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
  */
 
 export default function HomeList() {
-	const { data: houses2 } = useQuery({
-		queryKey: ['houses'],
-		queryFn: () => getHouses(),
-	});
+	// const { data: houses2 } = useQuery({
+	// 	queryKey: ['houses'],
+	// 	queryFn: () => getHouses(),
+	// });
+	const { ref, inView } = useInView();
 
 	const {
 		data,
@@ -29,6 +32,12 @@ export default function HomeList() {
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
 	});
 
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetchingNextPage) {
+			fetchNextPage();
+		}
+	}, [inView, fetchNextPage, hasNextPage]);
+
 	return (
 		<>
 			<ul
@@ -40,28 +49,31 @@ export default function HomeList() {
 			>
 				{data &&
 					data.pages.map((page) =>
-						page.data.map(({ id, address, homeowner, price }) => (
-							<li
-								key={id}
-								style={{
-									border: '1px solid blue',
-									marginBottom: '8px',
-									padding: '4px',
-								}}
-							>
-								<p>{homeowner}</p>
-								<p>{address}</p>
-								<p>${price}</p>
-							</li>
-						))
+						page.data.map(
+							({ id, address, homeowner, price }, index) => (
+								<li
+									key={id}
+									// We set the observer to the last element
+									// in the list
+									ref={
+										page.data.length === index + 1
+											? ref
+											: null
+									}
+									style={{
+										border: '1px solid blue',
+										marginBottom: '8px',
+										padding: '4px',
+									}}
+								>
+									<p>{homeowner}</p>
+									<p>{address}</p>
+									<p>${price}</p>
+								</li>
+							)
+						)
 					)}
 			</ul>
-			<button
-				type="button"
-				onClick={() => !isFetchingNextPage && fetchNextPage()}
-			>
-				Load More...
-			</button>
 		</>
 	);
 }
