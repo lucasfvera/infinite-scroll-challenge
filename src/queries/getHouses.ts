@@ -2,7 +2,7 @@ import { House } from '@/app/page';
 
 export const getHouses = async () => {
 	const rawHousesResponse = await fetch(
-		`http://localhost:3000/api/screens/houses-list?page`
+		`${process.env.NEXT_PUBLIC_BFF_BASE_URL}screens/houses-list`
 	);
 	const jsonHousesResponse = await rawHousesResponse.json();
 	if (!jsonHousesResponse.ok) {
@@ -17,7 +17,7 @@ export const getHousesInfinite = async ({
 	pageParam: number;
 }) => {
 	const rawHousesResponse = await fetch(
-		`http://localhost:3000/api/screens/houses-list?page=${pageParam}`
+		`${process.env.NEXT_PUBLIC_BFF_BASE_URL}screens/houses-list?page=${pageParam}`
 	);
 	const jsonHousesResponse = await rawHousesResponse.json();
 	if (!jsonHousesResponse.ok) {

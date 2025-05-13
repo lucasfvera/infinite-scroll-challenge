@@ -31,7 +31,12 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+
+# I'll commit my env file because I won't be storing any sensible data in it
+# like secrets, for now it would be just to store environment specific
+# settings.
+
+# .env*
 
 # vercel
 .vercel
