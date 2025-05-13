@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Providers from '@/providers/Providers';
 
 const interSans = Inter({
 	subsets: ['latin'],
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={interSans.className}>{children}</body>
+			<body className={interSans.className}>
+				<Providers>{children}</Providers>
+			</body>
 		</html>
 	);
 }

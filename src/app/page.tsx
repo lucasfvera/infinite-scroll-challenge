@@ -1,10 +1,35 @@
-export default function Home() {
+import HomeList from '@/app/HomeList';
+import { getHouses } from '@/queries/getHouses';
+import {
+	dehydrate,
+	HydrationBoundary,
+	QueryClient,
+} from '@tanstack/react-query';
+
+export interface House {
+	address: string;
+	homeowner: string;
+	id: number;
+	photoURL: string;
+	price: number;
+}
+
+export default async function Home() {
+	const queryClient = new QueryClient();
+
+	await queryClient.prefetchQuery({
+		queryKey: ['houses'],
+		queryFn: getHouses,
+	});
+
 	return (
-		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-			<main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-				HomeVision House Listing
-			</main>
-			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
-		</div>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<div>
+				<main>
+					<h1>HomeVision House Listing</h1>
+				</main>
+				<HomeList />
+			</div>
+		</HydrationBoundary>
 	);
 }
