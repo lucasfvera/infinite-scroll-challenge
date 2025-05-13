@@ -14,12 +14,17 @@
     or whatever we want.
 */
 
-export async function GET(req: Request) {
+import { NextRequest } from 'next/server';
+
+export async function GET(req: NextRequest) {
+	const page = req.nextUrl.searchParams.get('page');
 	let houses;
+	// TODO - To avoid sending a failed response to the client, we can add a
+	// counter to retry the request N times before responding with an error
 
 	try {
 		const rawHousesResponse = await fetch(
-			'https://staging.homevision.co/api_project/houses'
+			`https://staging.homevision.co/api_project/houses?page=${page}`
 		);
 		const jsonHousesResponse = await rawHousesResponse.json();
 		if (!jsonHousesResponse.ok) {
@@ -28,7 +33,7 @@ export async function GET(req: Request) {
 		houses = jsonHousesResponse.houses;
 	} catch (err) {
 		console.error('There was an error while fetching the houses:', err);
-		return Response.json({ data: [], ok: false });
+		return Response.json({ data: [], ok: false }, { status: 500 });
 	}
 
 	// TODO - We will tweak the data structure to the one we need for our UI

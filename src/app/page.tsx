@@ -1,5 +1,5 @@
 import HomeList from '@/app/HomeList';
-import { getHouses } from '@/queries/getHouses';
+import { getHouses, getHousesInfinite } from '@/queries/getHouses';
 import {
 	dehydrate,
 	HydrationBoundary,
@@ -17,9 +17,10 @@ export interface House {
 export default async function Home() {
 	const queryClient = new QueryClient();
 
-	await queryClient.prefetchQuery({
-		queryKey: ['houses'],
-		queryFn: getHouses,
+	await queryClient.prefetchInfiniteQuery({
+		queryKey: ['houses-list'],
+		queryFn: () => getHousesInfinite({ pageParam: 1 }),
+		initialPageParam: 1,
 	});
 
 	return (
