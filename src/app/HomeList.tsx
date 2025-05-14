@@ -2,7 +2,7 @@
 
 import { getHouses, getHousesInfinite } from '@/queries/getHouses';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 /*
@@ -16,6 +16,7 @@ export default function HomeList() {
 	// 	queryFn: () => getHouses(),
 	// });
 	const { ref, inView } = useInView();
+	const hasRestoredScroll = useRef(false);
 
 	const {
 		data,
@@ -37,6 +38,36 @@ export default function HomeList() {
 			fetchNextPage();
 		}
 	}, [inView, fetchNextPage, hasNextPage]);
+
+	// The save scroll position can be done with the Y position because we
+	// are storing the items in cache which means that after refresh all the
+	// items will be there.
+	// If we move to a different approach, like virtualizing the list and only
+	// fetching a set of items, we would need to change this approach
+	// (maybe storing the item id instead to know the user's position in the list)
+
+	// Save scroll position when users refresh the page
+	useEffect(() => {
+		const handleBeforeUnload = () => {
+			localStorage.setItem('scrollY', window.scrollY.toString());
+		};
+
+		window.addEventListener('beforeunload', handleBeforeUnload);
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		};
+	}, []);
+
+	// Restore scroll position once we have the data from the cache
+	useEffect(() => {
+		if (!hasRestoredScroll.current && data) {
+			const y = localStorage.getItem('scrollY');
+			if (y) {
+				window.scrollTo({ top: parseInt(y, 10), behavior: 'smooth' });
+				hasRestoredScroll.current = true;
+			}
+		}
+	}, [data]);
 
 	// TODO - If we want a cleaner code and make it more readable, we could extract
 	// the list item into it's own component
