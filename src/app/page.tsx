@@ -1,5 +1,5 @@
 import HomeList from '@/app/HomeList';
-import { getHousesInfinite } from '@/queries/getHouses';
+// import { getHousesInfinite } from '@/queries/getHouses';
 import {
 	dehydrate,
 	HydrationBoundary,
@@ -18,7 +18,7 @@ export default async function Home() {
 	const queryClient = new QueryClient();
 
 	// This was intended for fetching the first page in the server which saved
-	// us fetching it in the client giving a better UX.
+	// us fetching it in the client giving a better UX for first render.
 	// We disabled it for 2 reasons:
 	// 1. The flakiness of the API made this unstable. When then API failed,
 	// the prefetch returned an empty array and we ended up fetching
