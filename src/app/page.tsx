@@ -1,5 +1,5 @@
 import HomeList from '@/app/HomeList';
-import { getHouses, getHousesInfinite } from '@/queries/getHouses';
+import { getHousesInfinite } from '@/queries/getHouses';
 import {
 	dehydrate,
 	HydrationBoundary,

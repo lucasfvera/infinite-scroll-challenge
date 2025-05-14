@@ -1,6 +1,6 @@
 'use client';
 
-import { getHouses, getHousesInfinite } from '@/queries/getHouses';
+import { getHousesInfinite } from '@/queries/getHouses';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -11,10 +11,6 @@ import { useInView } from 'react-intersection-observer';
  */
 
 export default function HomeList() {
-	// const { data: houses2 } = useQuery({
-	// 	queryKey: ['houses'],
-	// 	queryFn: () => getHouses(),
-	// });
 	const { ref, inView } = useInView();
 	const hasRestoredScroll = useRef(false);
 
