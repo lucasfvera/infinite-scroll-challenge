@@ -1,11 +1,13 @@
 'use client';
-import {
-	isServer,
-	QueryClient,
-	QueryClientProvider,
-} from '@tanstack/react-query';
+
+import { isServer, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
+import {
+	persistQueryClient,
+	PersistQueryClientProvider,
+} from '@tanstack/react-query-persist-client';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 
 function makeQueryClient() {
 	return new QueryClient({
@@ -14,6 +16,8 @@ function makeQueryClient() {
 				// With SSR, we usually want to set some default staleTime
 				// above 0 to avoid refetching immediately on the client
 				staleTime: 60 * 1000,
+				// We want to keep the cache for 12 hours
+				gcTime: 1000 * 60 * 60 * 12,
 			},
 		},
 	});
@@ -35,13 +39,35 @@ function getQueryClient() {
 	}
 }
 
+// Ideally we would use an IndexDB which has more capacity, it's faster and it
+// doesn't require serialization because it can store JavaScript native types
+const syncStoragePersister = createSyncStoragePersister({
+	storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+});
+
 export default function Providers({ children }: { children: ReactNode }) {
+	const [isReady, setIsReady] = useState(false);
 	const queryClient = getQueryClient();
 
+	useEffect(() => {
+		// We need to wait until subscribing the cache is done and restored
+		// before rendering the app
+		const [_, p] = persistQueryClient({
+			queryClient: getQueryClient(),
+			persister: syncStoragePersister,
+		});
+		p.then(() => setIsReady(true));
+	}, [queryClient]);
+
+	if (!isReady) return null;
+
 	return (
-		<QueryClientProvider client={queryClient}>
+		<PersistQueryClientProvider
+			client={queryClient}
+			persistOptions={{ persister: syncStoragePersister }}
+		>
 			{children}
 			<ReactQueryDevtools />
-		</QueryClientProvider>
+		</PersistQueryClientProvider>
 	);
 }
