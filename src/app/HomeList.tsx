@@ -1,7 +1,7 @@
 'use client';
 
 import { getHousesInfinite } from '@/queries/getHouses';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -14,26 +14,19 @@ export default function HomeList() {
 	const { ref, inView } = useInView();
 	const hasRestoredScroll = useRef(false);
 
-	const {
-		data,
-		error,
-		fetchNextPage,
-		hasNextPage,
-		isFetching,
-		isFetchingNextPage,
-		status,
-	} = useInfiniteQuery({
-		queryKey: ['houses-list'],
-		queryFn: getHousesInfinite,
-		initialPageParam: 1,
-		getNextPageParam: (lastPage) => lastPage.nextCursor,
-	});
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+		useInfiniteQuery({
+			queryKey: ['houses-list'],
+			queryFn: getHousesInfinite,
+			initialPageParam: 1,
+			getNextPageParam: (lastPage) => lastPage.nextCursor,
+		});
 
 	useEffect(() => {
 		if (inView && hasNextPage && !isFetchingNextPage) {
 			fetchNextPage();
 		}
-	}, [inView, fetchNextPage, hasNextPage]);
+	}, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
 	// The save scroll position can be done with the Y position because we
 	// are storing the items in cache which means that after refresh all the

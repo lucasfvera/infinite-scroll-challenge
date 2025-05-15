@@ -52,7 +52,7 @@ export default function Providers({ children }: { children: ReactNode }) {
 	useEffect(() => {
 		// We need to wait until subscribing the cache is done and restored
 		// before rendering the app
-		const [_, p] = persistQueryClient({
+		const [, p] = persistQueryClient({
 			queryClient: getQueryClient(),
 			persister: syncStoragePersister,
 		});
