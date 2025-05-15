@@ -11,3 +11,27 @@ export const MOCKED_HOUSE: House = {
 	photoURL: 'https://www.example.com',
 	price: 100000,
 };
+
+export const MOCKED_HOUSES_LIST: House[] = [
+	{
+		address: 'fake address 123',
+		homeowner: 'John Doe',
+		id: 1,
+		photoURL: 'https://www.example.com',
+		price: 100000,
+	},
+	{
+		address: 'fake address 456',
+		homeowner: 'Jane Doe',
+		id: 2,
+		photoURL: 'https://www.example.com',
+		price: 50000,
+	},
+	{
+		address: 'fake address 789',
+		homeowner: 'Rick Doe',
+		id: 3,
+		photoURL: 'https://www.example.com',
+		price: 30000,
+	},
+];
