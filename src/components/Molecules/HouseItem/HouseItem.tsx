@@ -15,7 +15,7 @@ const HouseItem: React.FC<HouseItemProps> = ({ house, ref }) => {
 			<p>{id}</p>
 			<p>{homeowner}</p>
 			<p>{address}</p>
-			<p>${price}</p>
+			<p>$ {price}</p>
 		</li>
 	);
 };
