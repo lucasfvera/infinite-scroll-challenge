@@ -45,7 +45,7 @@ const syncStoragePersister = createSyncStoragePersister({
 	storage: typeof window !== 'undefined' ? window.localStorage : undefined,
 });
 
-export default function Providers({ children }: { children: ReactNode }) {
+function Providers({ children }: { children: ReactNode }) {
 	const [isReady, setIsReady] = useState(false);
 	const queryClient = getQueryClient();
 
@@ -71,3 +71,5 @@ export default function Providers({ children }: { children: ReactNode }) {
 		</PersistQueryClientProvider>
 	);
 }
+
+export { Providers };
