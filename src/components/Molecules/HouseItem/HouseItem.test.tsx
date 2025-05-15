@@ -1,14 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
-import type { House } from '@/queries/interface';
 import { HouseItem } from '@/components/Molecules/HouseItem/HouseItem';
-
-const MOCKED_HOUSE: House = {
-	address: 'fake address 123',
-	homeowner: 'John Doe',
-	id: 1,
-	photoURL: 'https://www.example.com',
-	price: 100000,
-};
+import { MOCKED_HOUSE } from '@/components/Molecules/HouseItem/mocks';
 
 describe('HouseItem Component', () => {
 	it('Renders a list item with the house data', () => {
