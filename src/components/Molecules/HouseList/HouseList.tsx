@@ -6,11 +6,6 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-/*
-    This component could be in a components folder using the Atomic Design
-    pattern (layouts, molecules, atoms).
- */
-
 function HouseList() {
 	const { ref, inView } = useInView();
 	const hasRestoredScroll = useRef(false);
@@ -29,6 +24,7 @@ function HouseList() {
 		}
 	}, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
+	// NOTE
 	// The save scroll position can be done with the Y position because we
 	// are storing the items in cache which means that after refresh all the
 	// items will be there.
@@ -59,8 +55,6 @@ function HouseList() {
 		}
 	}, [data]);
 
-	// TODO - If we want a cleaner code and make it more readable, we could extract
-	// the list item into it's own component
 	return (
 		<ul
 			style={{

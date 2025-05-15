@@ -9,6 +9,7 @@ import {
 export default async function Home() {
 	const queryClient = new QueryClient();
 
+	// NOTE
 	// This was intended for fetching the first page in the server which saved
 	// us fetching it in the client giving a better UX for first render.
 	// We disabled it for 2 reasons:
