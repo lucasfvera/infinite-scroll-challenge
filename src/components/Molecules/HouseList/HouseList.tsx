@@ -1,5 +1,6 @@
 'use client';
 
+import { HouseItem } from '@/components/Molecules/HouseItem/HouseItem';
 import { getHousesInfinite } from '@/queries/getHouses';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
@@ -10,7 +11,7 @@ import { useInView } from 'react-intersection-observer';
     pattern (layouts, molecules, atoms).
  */
 
-export default function HomeList() {
+function HouseList() {
 	const { ref, inView } = useInView();
 	const hasRestoredScroll = useRef(false);
 
@@ -70,33 +71,23 @@ export default function HomeList() {
 		>
 			{data &&
 				data.pages.map((page) =>
-					page.data.map(
-						({ id, address, homeowner, price }, index) => (
-							<li
-								key={id}
-								// We set the observer to the element in the
-								// middle of the list to ensure we have
-								// the next page before the user gets to the bottom
-								ref={
-									Math.floor(page.data.length / 2) ===
-									index + 1
-										? ref
-										: null
-								}
-								style={{
-									border: '1px solid blue',
-									marginBottom: '8px',
-									padding: '4px',
-								}}
-							>
-								<p>{id}</p>
-								<p>{homeowner}</p>
-								<p>{address}</p>
-								<p>${price}</p>
-							</li>
-						)
-					)
+					page.data.map((house, index) => (
+						<HouseItem
+							key={house.id}
+							// We set the observer to the element in the
+							// middle of the list to ensure we have
+							// the next page before the user gets to the bottom
+							ref={
+								Math.floor(page.data.length / 2) === index + 1
+									? ref
+									: null
+							}
+							house={house}
+						/>
+					))
 				)}
 		</ul>
 	);
 }
+
+export { HouseList };

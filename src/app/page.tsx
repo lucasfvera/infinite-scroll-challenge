@@ -1,4 +1,4 @@
-import HomeList from '@/app/HomeList';
+import { HouseList } from '@/components/Molecules/HouseList/HouseList';
 // import { getHousesInfinite } from '@/queries/getHouses';
 import {
 	dehydrate,
@@ -31,7 +31,7 @@ export default async function Home() {
 				<main>
 					<h1>HomeVision House Listing</h1>
 				</main>
-				<HomeList />
+				<HouseList />
 			</div>
 		</HydrationBoundary>
 	);
