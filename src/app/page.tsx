@@ -6,14 +6,6 @@ import {
 	QueryClient,
 } from '@tanstack/react-query';
 
-export interface House {
-	address: string;
-	homeowner: string;
-	id: number;
-	photoURL: string;
-	price: number;
-}
-
 export default async function Home() {
 	const queryClient = new QueryClient();
 

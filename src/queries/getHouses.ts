@@ -1,4 +1,4 @@
-import { House } from '@/app/page';
+import type { House } from '@/queries/interface';
 
 const PER_PAGE = 30;
 
