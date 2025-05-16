@@ -1,5 +1,6 @@
 'use client';
 
+import { Spinner } from '@/components/Atoms/loadingSpinner';
 import { HouseItem } from '@/components/Molecules/HouseItem/HouseItem';
 import { getHousesInfinite } from '@/queries/getHouses';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -10,7 +11,7 @@ function HouseList() {
 	const { ref, inView } = useInView();
 	const hasRestoredScroll = useRef(false);
 
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
 		useInfiniteQuery({
 			queryKey: ['houses-list'],
 			queryFn: getHousesInfinite,
@@ -56,25 +57,31 @@ function HouseList() {
 	}, [data]);
 
 	return (
-		<ul className="flex flex-col space-y-8 items-center">
-			{data &&
-				data.pages.map((page) =>
-					page.data.map((house, index) => (
-						<HouseItem
-							key={house.id}
-							// We set the observer to the element in the
-							// middle of the list to ensure we have
-							// the next page before the user gets to the bottom
-							ref={
-								Math.floor(page.data.length / 2) === index + 1
-									? ref
-									: null
-							}
-							house={house}
-						/>
-					))
-				)}
-		</ul>
+		<>
+			<ul className="flex flex-col space-y-8 items-center">
+				{data &&
+					data.pages.map((page) =>
+						page.data.map((house, index) => (
+							<HouseItem
+								key={house.id}
+								// We set the observer to the element in the
+								// middle of the list to ensure we have
+								// the next page before the user gets to the bottom
+								ref={
+									Math.floor(page.data.length / 2) ===
+									index + 1
+										? ref
+										: null
+								}
+								house={house}
+							/>
+						))
+					)}
+			</ul>
+			<div className="py-[16px]">
+				<Spinner show={isLoading || isFetchingNextPage} size="large" />
+			</div>
+		</>
 	);
 }
 
