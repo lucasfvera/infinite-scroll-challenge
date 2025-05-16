@@ -11,15 +11,23 @@ describe('HouseItem Component', () => {
 		);
 
 		const item = screen.getByRole('listitem');
-		const houseAddress = within(item).getByText(MOCKED_HOUSE.address);
-		const houseHomeOwner = within(item).getByText(MOCKED_HOUSE.homeowner);
+		const houseAddress = within(item).getByText(MOCKED_HOUSE.address, {
+			exact: false,
+		});
+		const houseHomeOwner = within(item).getByText(MOCKED_HOUSE.homeowner, {
+			exact: false,
+		});
 		const housePrice = within(item).getByText(MOCKED_HOUSE.price, {
 			exact: false,
 		});
+		const housePhoto = within(item).getByAltText('house photo');
 
 		expect(item).toBeInTheDocument();
 		expect(houseAddress).toBeInTheDocument();
 		expect(houseHomeOwner).toBeInTheDocument();
 		expect(housePrice).toBeInTheDocument();
+		expect(housePhoto).toBeInTheDocument();
 	});
+
+	it.todo('Renders a list of house characteristics when providing one');
 });

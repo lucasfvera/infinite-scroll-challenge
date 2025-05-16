@@ -14,6 +14,11 @@
     or whatever we want.
 */
 
+import {
+	getRandomNegative,
+	getRandomPositive,
+} from '@/app/api/screens/houses-list/helpers';
+import { House } from '@/queries/interface';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -31,7 +36,12 @@ export async function GET(req: NextRequest) {
 		if (!jsonHousesResponse.ok) {
 			throw new Error(jsonHousesResponse.message);
 		}
-		houses = jsonHousesResponse.houses;
+		// We will type it as any but we should have the proper House type. It would be slightly different from the one we get from the BE
+		houses = jsonHousesResponse.houses.map((house: House) => ({
+			...house,
+			positiveCharacteristics: getRandomPositive(),
+			negativeCharacteristics: getRandomNegative(),
+		}));
 	} catch (err) {
 		console.error('There was an error while fetching the houses:', err);
 		return Response.json({ data: [], ok: false }, { status: 500 });

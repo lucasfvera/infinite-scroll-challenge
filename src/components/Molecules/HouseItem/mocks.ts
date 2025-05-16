@@ -10,6 +10,8 @@ export const MOCKED_HOUSE: House = {
 	id: 1,
 	photoURL: 'https://www.example.com',
 	price: 100000,
+	positiveCharacteristics: [],
+	negativeCharacteristics: [],
 };
 
 export const MOCKED_HOUSES_LIST: House[] = [
@@ -19,6 +21,8 @@ export const MOCKED_HOUSES_LIST: House[] = [
 		id: 1,
 		photoURL: 'https://www.example.com',
 		price: 100000,
+		positiveCharacteristics: [],
+		negativeCharacteristics: [],
 	},
 	{
 		address: 'fake address 456',
@@ -26,6 +30,8 @@ export const MOCKED_HOUSES_LIST: House[] = [
 		id: 2,
 		photoURL: 'https://www.example.com',
 		price: 50000,
+		positiveCharacteristics: [],
+		negativeCharacteristics: [],
 	},
 	{
 		address: 'fake address 789',
@@ -33,5 +39,7 @@ export const MOCKED_HOUSES_LIST: House[] = [
 		id: 3,
 		photoURL: 'https://www.example.com',
 		price: 30000,
+		positiveCharacteristics: [],
+		negativeCharacteristics: [],
 	},
 ];
