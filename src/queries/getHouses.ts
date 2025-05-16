@@ -8,7 +8,7 @@ export const getHousesInfinite = async ({
 	pageParam: number;
 }) => {
 	const rawHousesResponse = await fetch(
-		`${process.env.NEXT_PUBLIC_BFF_BASE_URL}screens/houses-list?page=${pageParam}&per_page=${PER_PAGE}`
+		`/api/screens/houses-list?page=${pageParam}&per_page=${PER_PAGE}`
 	);
 	const jsonHousesResponse = await rawHousesResponse.json();
 	if (!jsonHousesResponse.ok) {
