@@ -56,13 +56,7 @@ function HouseList() {
 	}, [data]);
 
 	return (
-		<ul
-			style={{
-				border: '1px solid black',
-				padding: '8px',
-				margin: '0 16px',
-			}}
-		>
+		<ul className="flex flex-col space-y-8 items-center">
 			{data &&
 				data.pages.map((page) =>
 					page.data.map((house, index) => (

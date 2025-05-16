@@ -28,12 +28,12 @@ export default async function Home() {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<div>
-				<main>
-					<h1>HomeVision House Listing</h1>
-				</main>
+			<main>
+				<h1 className="mb-8 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl lg:text-center">
+					HomeVision House Listing
+				</h1>
 				<HouseList />
-			</div>
+			</main>
 		</HydrationBoundary>
 	);
 }
