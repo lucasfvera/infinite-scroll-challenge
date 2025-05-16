@@ -4,7 +4,7 @@ This project is a [Next.js](https://nextjs.org) project bootstrapped with [`crea
 
 ## Deployed Version
 
-You can see a working version by going to ____
+You can see a working version by going to https://infinite-scroll-challenge-jet.vercel.app/
 
 ## Running Locally
 
