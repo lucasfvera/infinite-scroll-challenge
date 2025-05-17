@@ -22,7 +22,7 @@ const HouseItem: React.FC<HouseItemProps> = ({ house, ref }) => {
 	return (
 		<li ref={ref} className="flex w-full justify-center">
 			<Card className="shadow-md hover:shadow-2xl transition-shadow w-full h-[200px] lg:h-[400px] relative  lg:max-w-[940px] overflow-hidden">
-				<CardHeader className="max-w-1/2">
+				<CardHeader className="w-full sm:max-w-1/2">
 					<CardTitle>Owner: {homeowner}</CardTitle>
 					<CardDescription>Address: {address}</CardDescription>
 					<CardDescription>House nº {id + 1}</CardDescription>
@@ -43,7 +43,7 @@ const HouseItem: React.FC<HouseItemProps> = ({ house, ref }) => {
 							type="negative"
 						/>
 					</div>
-					<div className="h-[500px] md:shrink-0 w-full absolute right-0 top-1/2 -translate-y-1/2 max-w-[200px] md:max-w-[300px] lg:max-w-[400px]">
+					<div className="h-[500px] md:shrink-0 w-full absolute right-0 top-1/2 -translate-y-1/2 max-w-[200px] md:max-w-[300px] lg:max-w-[400px] max-sm:hidden">
 						<img
 							className="h-[500px] absolute right-0 top-1/2 -translate-y-1/2 object-cover"
 							alt="house photo"

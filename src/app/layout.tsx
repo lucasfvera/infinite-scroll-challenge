@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`m-16 ${interSans.className}`}>
+			<body className={`m-16 max-sm:mx-4 ${interSans.className}`}>
 				<Providers>{children}</Providers>
 			</body>
 		</html>
